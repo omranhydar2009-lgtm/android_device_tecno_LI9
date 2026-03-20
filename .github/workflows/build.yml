@@ -1,4 +1,4 @@
-name: Recovery Build Android 15 - Verified Tree
+name: Recovery cBuild Android 15 - Verified Tree
 
 on:
   workflow_dispatch:
@@ -44,12 +44,12 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         export LC_ALL=C
         source build/envsetup.sh
-        lunch twrp_li9-eng || lunch aosp_li9-eng
+        # الصيغة الثلاثية الإجبارية لأندرويد 15 بناءً على ملفات naden01
+        lunch twrp_li9-twrp-eng || lunch twrp_li9-trunk_staging-eng
         mka recoveryimage -j$(nproc --all)
 
     - name: Upload Final TWRP Image
       uses: actions/upload-artifact@v4
       with:
         name: TWRP-Tecno-Pova6Pro-A15
-        path: |
-          work/out/target/product/li9/recovery.img
+        path: work/out/target/product/li9/recovery.img
